@@ -1,0 +1,57 @@
+"Hey lamas, welcome to the first video of this linear algebra series.
+
+ This is just an introductory video where we are going to begin by answering the first question: What are vectors?
+
+Assuming that you all are familiar with scalars, which are numbers used for quantifying things.
+
+ For example, 5 apples, 10 oranges, 2.5 men.
+ 
+  All these numbers are scalars; they basically give you information about the magnitude of these things.
+
+Now, vectors, on the other hand, provide additional information along with magnitude, and whats that additional information?
+
+a direction!!
+
+
+
+geometrically it is represented as an arrow, where the tail begins from the origin (0,0) to any arbitrary point in space.
+for the time being, we will stick to 2 D space.
+ 
+[draw a vector, and label it as vector v]
+
+
+this is how you represent a vector, v with an arrow above it.
+v = |v| n_hat
+
+|v| is the magnitude and n_hat is the direction
+
+for some n_hat might be this way, or perhaps that way. basically it's not a standard notation, there has to be some standard direction for everybody to understand. 
+
+solution is unit vectors along the axes 
+
+think of this vector v.
+
+this can be written as:
+
+v = i + j
+where,
+these two (i and j) tells you the direction along x and y axis respectively 
+
+these two, ladies and gentlemen are called unit vectors.
+
+means vectors with magnitude equals 1. 
+
+--
+ use the matrix representation:
+ answer the following questions: 
+ 
+ - how do you represent this in matrix format
+ - in 2d 
+ - in 3d 
+ 
+ 
+ Q) how to add two vectors ? 
+ 
+ Q) vector Scaling? or multiplying a matrix with a scalar 
+
+
