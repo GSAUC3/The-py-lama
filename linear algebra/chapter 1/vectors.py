@@ -18,6 +18,9 @@ def Create(*a,**kw):
 
 
 class VectorExplanation(Scene):
+    """
+    This is taken from NCERT Class 11, Chapter 1, Vectors.
+    The scene explains the concept of vectors in a step-by-step manner."""
     def construct(self):
         # Step 1: A line with no direction
         title1 = Text("Imagine a Line, this has no direction.", font="Arial", font_size=28).to_edge(UP)
@@ -60,3 +63,66 @@ class VectorExplanation(Scene):
         vector_label = Text("Vector", font_size=32, color=GREEN).next_to(ab_arrow, UP)
         self.play(Write(vector_label))
         self.wait(4)
+
+
+
+class Part1(Scene):
+    def construct(self):
+        title = Text("Matrices", font_size=48).to_edge(UP)
+        self.play(Write(title))
+        self.wait(2)
+        
+ 
+        matrix_tex = r"""
+        M = \begin{bmatrix}
+        e_{11} & e_{12} & \cdots & e_{1n} \\
+        e_{21} & e_{22} & \cdots & e_{2n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        e_{m1} & e_{m2} & \cdots & e_{mn}
+        \end{bmatrix}
+        """
+
+        matrix = Tex(matrix_tex)
+        matrix.scale(1.2)  # Optional: scale up for better visibility
+        matrix.move_to(ORIGIN)
+
+        self.play(Write(matrix))
+        self.wait(2)
+
+        # m_label = Tex(r"m").scale(0.8)
+        # n_label = Tex(r"n").scale(0.8)
+
+ # Create the shape label: m x n
+        shape_label = Tex(r"m \times n")
+        shape_label.scale(0.8)
+
+        # Position it to the bottom right of the matrix
+        shape_label.next_to(matrix.get_corner(DOWN + RIGHT), DOWN + RIGHT, buff=0.1)
+
+        # Animate the shape label
+        self.play(FadeIn(shape_label))
+        self.wait(2)
+
+
+
+
+
+
+
+
+        # # Positioning
+        # m_label.next_to(matrix.get_bottom(), LEFT, buff=0.3).shift(0.3 * DOWN + 1.5 * RIGHT)
+        # n_label.next_to(matrix.get_bottom(), RIGHT, buff=0.3).shift(0.3 * DOWN + 1.5 * LEFT)
+
+        # # Display matrix
+        # self.play(Write(matrix))
+        # self.wait(0.5)
+
+        # # Animate m, then n
+        # self.play(FadeIn(m_label))
+        # self.wait(0.3)
+        # self.play(FadeIn(n_label))
+        # self.wait(2)
+
+
+
