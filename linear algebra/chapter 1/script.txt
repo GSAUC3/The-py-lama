@@ -1,0 +1,18 @@
+Imagine a Line, this has no direction. 
+
+we can define a direction by giving an arrow. now thi is a line that has a direction. 
+in this case it is towards the north. 
+
+now let's restrict this line to two points, a and b. now this is your line segment, with a direction. 
+
+Ladies and gentlemen this is nothing but a vector. 
+So a vector is a quantity that has both, magnitude and a direction. which is usually represented with an arrow
+
+where magnitude tells you the length of the vector, denoted by |v| or simple v 
+
+and remember |v|>=0 can never be negative 
+
+let's consider 2D space 
+
+This is how you write a vector in 2D Space 
+in 3 D it will be like this. 

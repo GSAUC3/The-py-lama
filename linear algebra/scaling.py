@@ -10,53 +10,6 @@ def Create(*a,**kw):
     return ShowCreation(*a,**kw)
 
 
-
-class SpanOfSingleVector(Scene):
-    def construct(self):
-        axes = Axes()
-        self.add(axes)
-
-        
-        vector = np.array([2, 1, 0])
-        origin = np.array([0, 0, 0])
-        
-        
-        vector_obj = Arrow(start=origin, end=vector, buff=0, color=BLUE)
-        vector_label = Tex(r'\vec{v}').next_to(vector_obj.get_end(), UP)
-
-        
-        self.play(GrowArrow(vector_obj), Write(vector_label))
-        self.wait(1)
-
-        
-        scaling_factors = [2, 0.5, -0.5, 1.5, -1.5]
-
-        
-        scaled_vectors = []
-
-        for scale_factor in scaling_factors:
-            
-            scaled_vector = scale_factor * vector
-
-            
-            scaled_vector_obj = Arrow(start=origin, end=scaled_vector, buff=0, color=RED if scale_factor > 0 else GREEN)
-            scaled_vector_label = Tex(f'{scale_factor}\\vec{{v}}').next_to(scaled_vector_obj.get_end(), UP if scale_factor > 0 else DOWN)
-
-            
-            self.play(GrowArrow(scaled_vector_obj), Write(scaled_vector_label))
-            self.wait(2)
-
-            
-            scaled_vectors.append((scaled_vector_obj, scaled_vector_label))
-
-        
-        parallel_line = Line(start=5 * vector / np.linalg.norm(vector), end=-5 * vector / np.linalg.norm(vector), color=YELLOW)
-        parallel_text = Tex(r'\text{All scaled vectors are parallel to } \vec{v}').to_edge(UP)
-
-        self.play(ShowCreation(parallel_line), Write(parallel_text))
-        self.wait(2)
-
-
 class Scaling(Scene):
     def construct(self):
         # Set up the axes
@@ -86,7 +39,7 @@ class Scaling(Scene):
 
         # Create the continuously updating label
         continuous_label = always_redraw(
-            lambda: MathTex(f'{continuous_scale_factor.get_value():.2f}\\cdot\\vec{{v}}').next_to(
+            lambda: MathTex(f'{continuous_scale_factor.get_value():.1f}\\cdot\\vec{{v}}').next_to(
                 continuously_scaled_vector.get_end(), UP
             )
         )
@@ -94,16 +47,16 @@ class Scaling(Scene):
         # Create the vector matrix
         vector_matrix = always_redraw(
             lambda: Matrix(
-                [[f'{continuous_scale_factor.get_value() :.2f} * { vector[0]:.2f}'],
-                 [f'{continuous_scale_factor.get_value() :.2f} * { vector[1]:.2f}']],
+                [[f'{continuous_scale_factor.get_value() :.1f} * { vector[0]:.1f}'],
+                 [f'{continuous_scale_factor.get_value() :.1f} * { vector[1]:.1f}']],
                
             ).shift(3* DOWN + 2*RIGHT)
         )
         equal_to = Tex('=').next_to(vector_matrix)
         vector_mat_result = always_redraw(
             lambda: Matrix(
-                [[f'{continuous_scale_factor.get_value() * vector[0]:.2f}'],
-                 [f'{continuous_scale_factor.get_value() * vector[1]:.2f}']],
+                [[f'{continuous_scale_factor.get_value() * vector[0]:.1f}'],
+                 [f'{continuous_scale_factor.get_value() * vector[1]:.1f}']],
                
             ).next_to(equal_to)
         )
@@ -124,7 +77,7 @@ class Scaling(Scene):
         )
 
         # Scale the vector through different values
-        for scale in [1, 2, -1, -3, -2, -0.5, 0.5, 1]:
+        for scale in [2,0,  -1.5]:
             self.play(
                 continuous_scale_factor.animate.set_value(scale),
                 run_time=5,

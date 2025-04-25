@@ -9,6 +9,45 @@ def MathTex(*a,**kw):
 def Create(*a,**kw):
     return ShowCreation(*a,**kw)
 
+
+
+
+class SpanOfSingleVector(Scene):
+    def construct(self):
+        axes = Axes()
+        self.add(axes)
+
+        v = np.array([2, 1, 0])
+        origin = np.array([0, 0, 0])
+        arrow = Arrow(start=origin, end=v, buff=0, color=BLUE)
+        label = Tex(r"\vec{v}").next_to(arrow.get_end(), UP)
+
+        self.play(GrowArrow(arrow), Write(label))
+        self.wait(1)
+
+        scaling_factors = [2, 0.5, -0.5, -1.5, 1.5]
+
+        for scale in scaling_factors:
+            scaled_vec = scale * v
+            arrow_scaled = Arrow(start=origin, end=scaled_vec, buff=0, color=RED)
+            label_scaled = Tex(f"{scale}\\vec{{v}}").next_to(arrow_scaled.get_end(), UP)
+            self.play(GrowArrow(arrow_scaled), Write(label_scaled))
+            self.wait(0.5)
+
+        line = Line(start=5*v/np.linalg.norm(v), end=-5*v/np.linalg.norm(v), color=YELLOW)
+        text = Tex(r"\text{Span}(\vec{v}) \text{ is a line}").to_edge(UP)
+        self.play(ShowCreation(line), Write(text))
+        self.wait(2)
+
+
+
+
+
+
+
+
+
+
 class VectorAddition(Scene):
     def construct(self):
         # Set up the axes
@@ -115,7 +154,9 @@ class LinearCombinationOfiAndj(Scene):
         axes = Axes()
         self.add(axes)
 
-        
+        grid = NumberPlane()
+        self.add(grid)
+
         i_hat = np.array([1, 0, 0])
         j_hat = np.array([0, 1, 0])
         origin = np.array([0, 0, 0])
@@ -187,3 +228,69 @@ class LinearCombinationOfiAndj(Scene):
         
         self.play(ShowCreation(triangle))
         self.wait(1)
+
+
+
+class TriangularLaw(Scene):
+    def construct(self):
+        # Set up the axes
+        axes = Axes()
+        self.add(axes)
+
+        # Define the vectors
+        vector_1 = np.array([3, 0, 0])
+        v1 = np.array(vector_1[:2]).reshape(-1,2).T
+        vector_2 = np.array([-3, 1, 0])
+        v2 = np.array(vector_2[:2]).reshape(-1,2).T
+        origin = np.array([0, 0, 0])
+
+        # Create arrows for the vectors
+        vector_1_arrow = Arrow(start=origin, end=vector_1, buff=0, color=BLUE)
+        vector_2_arrow = Arrow(start=origin, end=vector_2, buff=0, color=GREEN)
+
+        # Create labels for the vectors
+        vector_1_label = MathTex(r'\vec{v}_1').next_to(vector_1_arrow.get_end(), UP)
+        vector_2_label = MathTex(r'\vec{v}_2').next_to(vector_2_arrow.get_end(), RIGHT)
+
+        # Display vectors and their labels
+        self.play(GrowArrow(vector_1_arrow), Write(vector_1_label))
+        self.play(GrowArrow(vector_2_arrow), Write(vector_2_label))
+        self.wait(1)
+
+        # Display the vectors as column matrices
+        # vector_1_matrix = Matrix([[3], [0]]).scale(0.5)
+        vector_1_matrix = Matrix(v1).scale(0.5)
+        vector_1_matrix.next_to(vector_1_label, DOWN)
+
+        vector_2_matrix = Matrix(v2).scale(0.5)
+        vector_2_matrix.next_to(vector_2_label, RIGHT)
+
+        self.play(Write(vector_1_matrix))
+        self.play(Write(vector_2_matrix))
+
+
+        # Compute the sum vector
+        sum_vector = vector_1 + vector_2
+
+        # Create an arrow for the sum vector
+        sum_vector_arrow = Arrow(start=origin, end=sum_vector, buff=0, color=ORANGE)
+
+        # Create a label for the sum vector
+        sum_vector_label = MathTex(r'\vec{v}_1 + \vec{v}_2').next_to(sum_vector_arrow.get_end(), UP)
+
+        # Display the sum vector and its label
+        self.play(GrowArrow(sum_vector_arrow), Write(sum_vector_label))
+        self.wait(1)
+
+        # Create the triangle representing the vector addition
+        triangle = Polygon(origin, vector_1, sum_vector, color=YELLOW, fill_opacity=0.5)
+
+        # Display the triangle
+        self.play(ShowCreation(triangle))
+        self.wait(1)
+
+        # Display the matrices
+        sum_vector_matrix = Matrix(v2+v1).scale(0.5)
+        sum_vector_matrix.next_to(sum_vector_label, RIGHT)
+        self.play(Write(sum_vector_matrix))
+        self.wait(2)
